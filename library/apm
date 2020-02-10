@@ -92,7 +92,7 @@ class Apm(object):
         installed = list()
         missing = list()
         data = self._exec(cmd, True, False)
-        pattern = re.compile('^(?:\xe2\x94\x9c|\xe2\x94\x94)\xe2\x94\x80\xe2\x94\x80\s+(\S+)@')
+        pattern = re.compile('^.{4}(\S+)@')
         for dep in data.splitlines():
             m = pattern.match(dep)
             if m:
@@ -114,7 +114,7 @@ class Apm(object):
     def list_outdated(self):
         outdated = list()
         data = self._exec(['outdated'], True, False)
-        pattern = re.compile('^(?:\xe2\x94\x9c|\xe2\x94\x94)\xe2\x94\x80\xe2\x94\x80\s+(\S+)')
+        pattern = re.compile('^.{4}(\S+)@')
         for dep in data.splitlines():
             m = pattern.match(dep)
             if m and m.group(1) != '(empty)':
